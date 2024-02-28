@@ -10,7 +10,12 @@ app.use(express.json());
 connectToMongo();
 
 app.use('/api',require('./Routes/user'));
+app.use('/api',require('./Routes/Todo'));
+app.use('/api/auth',require('./Routes/Quiz_route'));
+
+
 // Start the server
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

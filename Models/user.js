@@ -14,6 +14,15 @@ const database1 = mongoose.Schema({
         required: true,
         unique: true
     }
+    ,
+    quizzesTaken: [
+        {
+          quizId: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' },
+          score: { type: Number, required: true },
+          dateTaken: { type: Date, default: Date.now },
+          resultData : {type : []}
+        },
+      ],
   
 });
 const userregis = mongoose.model("old_user", database1);

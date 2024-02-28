@@ -59,8 +59,8 @@ const fetchperson=(req,res,next)=>{
       }
       try{
         const data = jwt.verify(token,JWT_SECRET)
-        
-        req.mongoid = data.jwt_data
+        // console.log(data);
+        req.mongoid = data.user_data
         
         next();
       }catch{
