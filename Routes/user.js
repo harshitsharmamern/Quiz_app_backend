@@ -15,33 +15,27 @@ router.post('/user/signup',isUser ,async(req, res) => {
    
     try {
         
-       
-        // const salt = await bcyrpt.getSalt(10);
-        // let secpass = await bcyrpt.hash(req.body.password)
-        // // const saltpass=  req.body.password
-
         const data = await user_db.create({
             fname: req.body.fname,
             password: req.body.password,
             username: req.body.username
         });
         // console.log({status : "Success", data});
-        res.status(201).json({status : "Success", data});
+        res.status(201).json({status : true, data});
     } catch (error) {
-        console.error(error);
+        // console.error(error);
         // Check if the error is a unique constraint violation
         if (error.code === 11000) {
-            res.status(400).json("Username must be unique");
+            res.status(400).json({status:false, msg :"Username must be unique"});
         } else {
-            res.status(500).json("Some error");
+            res.status(500).json({status :false ,msg :"Some error"});
         }
     }
 });
 
 router.post('/user/signin',checkuser ,async(req, res) => {
-   
     try {
-        
+        // console.log(req.body);
         let user = await user_db.findOne({ username: req.body.username });
 
         const jwt_data ={
@@ -55,9 +49,9 @@ router.post('/user/signin',checkuser ,async(req, res) => {
         console.error(error);
         // Check if the error is a unique constraint violation
         if (error.code === 11000) {
-            res.status(400).json("Username must be unique");
+            res.json({status : false, msg : "Username must be unique"});
         } else {
-            res.status(500).json("Some error");
+            res.json({status : false, msg : "status 500 some error"});
         }
     }
 });
@@ -67,6 +61,7 @@ router.post('user/logout',checkuser,(req,res)=>{
 })
 
 router.get('/user/home',fetchperson,(req,res)=>{
+    // console.log("yes");
         return res.json({status:true,home_data:req.mongoid})
       
 })

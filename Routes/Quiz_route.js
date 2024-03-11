@@ -9,6 +9,7 @@ const {isUser,checkuser,fetchperson} = require("../midileware/fetchperson");
 const Quiz_modle = require('../Models/Quiz');
 
 router.get("/All_quiz",async(req,res)=>{
+  // console.log("allquiz call");
         const data = await Quiz_modle.find()
 
         res.json({Quiz_data : data})
@@ -29,9 +30,11 @@ router.get("/All_quiz",async(req,res)=>{
 ////////////////////////////////
 router.get('/quiz/:quizid/questions', async (req, res) => {
   try {
+    // console.log("yes");
       const quizId = req.params.quizid;
-      const questions = await Quiz_modle.findById(quizId, 'questions'); // Assuming 'questions' is a field in your Quiz model
-      res.json({ questions });
+      // const onequizdata = await Quiz_modle.findById(quizId)
+      const questions = await Quiz_modle.findById(quizId); // Assuming 'questions' is a field in your Quiz model
+      res.json({status:true , questions });
   } catch (error) {
       console.error('Error fetching quiz questions:', error);
       res.status(500).json({ error: 'Internal Server Error' });

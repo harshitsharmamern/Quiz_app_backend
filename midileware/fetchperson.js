@@ -9,7 +9,7 @@ const user_db = require("../Models/user.js");
 
 const isUser = async(req,res,next)=>{
    
-    
+    // console.log(req.body);
     try{
         const d = req.body.fname
         if(!d){
@@ -17,7 +17,7 @@ const isUser = async(req,res,next)=>{
         }
         let user = await user_db.findOne({ username: req.body.username });
         if (user) {
-            return res.send('That user already exisits!');
+            return res.json({status:false ,msg :'That user already exisits!'});
         } 
     }catch(e){
         res.json(e)
@@ -43,7 +43,7 @@ const checkuser = async(req,res,next)=>{
             return res.json({status : false, msg:" password is not right"})
            }
         } else{
-            return res.json({status : false, msg:"this is not register user"})
+            return res.json({status : false, msg:" this is not register user"})
         }
     }catch(e){
         res.json(e)
