@@ -32,7 +32,7 @@ const checkuser = async(req,res,next)=>{
     try{
         const d = req.body.username
         if(!d){
-            return res.json({success:"false",msg: "username is required"})
+            return res.json({status: false,success :false,msg: "username is required"})
         }
         let user = await user_db.findOne({ username: req.body.username });
         if (user) {
